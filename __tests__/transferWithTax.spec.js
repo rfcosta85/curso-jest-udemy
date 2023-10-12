@@ -29,4 +29,14 @@ describe("transferWithTax", () => {
       ])
     );
   });
+
+  test("it should throw an error when trying to transfer a negative amount", () => {
+    const payerAccount = new Account(1, 1000);
+    const receiverAccount = new Account(2, 1000);
+
+    const updatedAccounts = () =>
+      transferWithTax(payerAccount, receiverAccount, -10);
+
+    expect(updatedAccounts).toThrow(Error("Invalid transfer amount: -10"));
+  });
 });
