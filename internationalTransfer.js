@@ -4,7 +4,7 @@ export function internationalTransfer(payer, receiver, transferAmount) {
   if (transferAmount > 0) {
     const payerAccountAfterTransfer = new Account(
       payer.id,
-      chargeTaxForTransfer(payer.balance, transferAmount)
+      middleTaxForTransfer(payer.balance, transferAmount)
     );
     const receiverAccountAfterTransfer = new Account(
       receiver.id,
@@ -20,4 +20,15 @@ export function internationalTransfer(payer, receiver, transferAmount) {
 function chargeTaxForTransfer(balance, transferAmount) {
   const tax = 100;
   return balance - transferAmount - tax;
+}
+
+function middleTaxForTransfer(balance, transferAmount) {
+  const tax = 100;
+  const fees = 0.05;
+  const paymentAfterFees = transferAmount * fees;
+  if (transferAmount >= 1000 && transferAmount <= 5000) {
+    return balance - transferAmount - paymentAfterFees - tax;
+  } else {
+    return balance - transferAmount - tax;
+  }
 }

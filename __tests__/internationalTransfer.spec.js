@@ -47,13 +47,13 @@ describe("internationalTransfer", () => {
       const updatedAccounts = internationalTransfer(
         payerAccount,
         receiverAccount,
-        1000
+        900
       );
 
       expect(updatedAccounts).toEqual(
         expect.arrayContaining([
-          expect.objectContaining({ id: 1, balance: 0 }),
-          expect.objectContaining({ id: 2, balance: 2000 }),
+          expect.objectContaining({ id: 1, balance: 100 }),
+          expect.objectContaining({ id: 2, balance: 1900 }),
         ])
       );
     }
