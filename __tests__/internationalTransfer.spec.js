@@ -81,6 +81,28 @@ describe("internationalTransfer", () => {
     }
   });
 
+  test("It should throw an error if the payerAccount balance is less than transferAmout", () => {
+    const payerAccount = new Account(1, 1000);
+    const receiverAccount = new Account(2, 1000);
+    const transferAmount = 800;
+
+    if (payerAccount.balance < transferAmount) {
+      throw new Error("Invalid transfer amount: 2000");
+    } else {
+      const updatedAccounts = internationalTransfer(
+        payerAccount,
+        receiverAccount,
+        transferAmount
+      );
+      expect(updatedAccounts).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ id: 1, balance: 100 }),
+          expect.objectContaining({ id: 2, balance: 1800 }),
+        ])
+      );
+    }
+  });
+
   test("it should throw an error when trying to transfer a negative amount", () => {
     const payerAccount = new Account(1, 1000);
     const receiverAccount = new Account(2, 1000);
