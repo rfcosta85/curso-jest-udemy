@@ -39,4 +39,14 @@ describe("transferWithTax", () => {
 
     expect(updatedAccounts).toThrow(Error("Invalid transfer amount: -10"));
   });
+
+  test("it should throw an error when trying to transfer amount is 0", () => {
+    const payerAccount = new Account(1, 1000);
+    const receiverAccount = new Account(2, 1000);
+
+    const updatedAccounts = () =>
+      transferWithTax(payerAccount, receiverAccount, 0);
+
+    expect(updatedAccounts).toThrow(Error("Invalid transfer amount: 0"));
+  });
 });
